@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>COREX SCRIPT — Curated Roblox Scripts</title>
+  <meta name="description" content="A curated, owner-maintained library of Roblox Lua scripts. Browse, search, and copy.">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div id="navbar-mount"></div>
+
+  <main>
+    <section class="hero">
+      <div class="hero-inner">
+        <span class="hero-pill"><span class="pulse-dot"></span><span id="heroCount">— scripts</span> curated by the owner</span>
+        <h1 class="hero-title">A hand-picked library of <span class="accent">Roblox scripts</span></h1>
+        <p class="hero-sub">Every script is reviewed and posted by one person. Browse, search, and copy — nothing here is crowdsourced or unmoderated.</p>
+        <form class="search-form hero-search" id="heroSearchForm">
+          <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M21 21l-4.3-4.3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          <input type="text" id="heroSearchInput" class="search-input lg" placeholder="Search by script, game, or tag…" aria-label="Search scripts">
+        </form>
+      </div>
+    </section>
+
+    <section class="section" id="featuredSection" style="display:none">
+      <div class="wrap">
+        <div class="section-head">
+          <div><p class="eyebrow">Handpicked</p><h2 class="section-title">Featured Scripts</h2></div>
+          <a class="section-link" href="/scripts.html?filter=featured">View all →</a>
+        </div>
+        <div id="featuredGrid" class="script-grid"></div>
+      </div>
+    </section>
+
+    <section class="section" id="latestSection" style="display:none">
+      <div class="wrap">
+        <div class="section-head">
+          <div><p class="eyebrow">Fresh</p><h2 class="section-title">Latest Scripts</h2></div>
+          <a class="section-link" href="/scripts.html?filter=latest">View all →</a>
+        </div>
+        <div id="latestGrid" class="script-grid"></div>
+      </div>
+    </section>
+
+    <section class="section" id="popularSection" style="display:none">
+      <div class="wrap">
+        <div class="section-head">
+          <div><p class="eyebrow">Trending</p><h2 class="section-title">Popular Scripts</h2></div>
+          <a class="section-link" href="/scripts.html?filter=popular">View all →</a>
+        </div>
+        <div id="popularGrid" class="script-grid"></div>
+      </div>
+    </section>
+
+    <p id="emptyState" class="muted-note" style="display:none">No scripts posted yet. Check back soon.</p>
+  </main>
+
+  <div id="footer-mount"></div>
+
+  <script src="/js/common.js"></script>
+  <script src="/js/home.js"></script>
+</body>
+</html>
