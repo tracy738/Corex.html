@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin Login — COREX SCRIPT</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div id="navbar-mount"></div>
+
+  <main style="min-height:70vh;display:flex;flex-direction:column;justify-content:center">
+    <div class="wrap-sm">
+      <div class="auth-card">
+        <p class="eyebrow">Owner access</p>
+        <h1 class="page-title" style="font-size:24px;margin-top:4px">Admin Login</h1>
+
+        <form id="loginForm" style="margin-top:24px">
+          <div class="field">
+            <label for="username">Username</label>
+            <input id="username" name="username" type="text" autocomplete="username" required>
+          </div>
+          <div class="field">
+            <label for="password">Password</label>
+            <input id="password" name="password" type="password" autocomplete="current-password" required>
+          </div>
+          <p class="error-text" id="loginError" style="display:none"></p>
+          <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:8px" id="loginBtn">Sign in</button>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <div id="footer-mount"></div>
+
+  <script src="/js/common.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      renderNavbar('navbar-mount');
+      renderFooter('footer-mount');
+
+      document.getElementById('loginForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const btn = document.getElementById('loginBtn');
+        const errorEl = document.getElementById('loginError');
+        errorEl.style.display = 'none';
+        btn.disabled = true;
+        btn.textContent = 'Signing in…';
+
+        try {
+          const res = await fetch('/api/admin/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              username: document.getElementById('username').value,
+              password: document.getElementById('password').value,
+            }),
+          });
+          const data = await res.json();
+          if (!res.ok) {
+            errorEl.textContent = data.error || 'Login failed.';
+            errorEl.style.display = 'block';
+            return;
+          }
+          window.location.href = '/admin/index.html';
+        } catch {
+          errorEl.textContent = 'Something went wrong. Try again.';
+          errorEl.style.display = 'block';
+        } finally {
+          btn.disabled = false;
+          btn.textContent = 'Sign in';
+        }
+      });
+    });
+  </script>
+</body>
+  </html>
+  
