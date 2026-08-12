@@ -1,0 +1,19 @@
+{
+  "name": "corex-script",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Owner-controlled Roblox script sharing site (plain HTML/CSS/JS + Express)",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "node server/index.js",
+    "setup:admin": "node scripts/create-admin.js",
+    "seed": "node scripts/seed.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2"
+  }
+}
