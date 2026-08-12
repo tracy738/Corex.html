@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#030303">
+
   <title>Staff Access — COREX SCRIPT</title>
 
   <style>
@@ -15,14 +16,13 @@
     body {
       margin: 0;
       min-height: 100%;
-      font-family: Inter, Arial, sans-serif;
       background: #030303;
       color: #fff;
+      font-family: Arial, sans-serif;
     }
 
     body {
       min-height: 100vh;
-      overflow: hidden;
     }
 
     .page {
@@ -31,142 +31,72 @@
       align-items: center;
       justify-content: center;
       padding: 20px;
-      position: relative;
       background:
         radial-gradient(
-          circle at 50% 20%,
-          rgba(255,255,255,.07),
-          transparent 32%
+          circle at center,
+          rgba(255,255,255,.055),
+          transparent 40%
         ),
         #030303;
     }
 
-    .grid {
-      position: absolute;
-      inset: 0;
-      opacity: .12;
-      pointer-events: none;
-
-      background-image:
-        linear-gradient(
-          rgba(255,255,255,.045) 1px,
-          transparent 1px
-        ),
-        linear-gradient(
-          90deg,
-          rgba(255,255,255,.045) 1px,
-          transparent 1px
-        );
-
-      background-size: 44px 44px;
-    }
-
-    .glow {
-      position: absolute;
-      width: 400px;
-      height: 400px;
-      border-radius: 50%;
-      background: rgba(255,255,255,.035);
-      filter: blur(100px);
-      pointer-events: none;
-    }
-
     .card {
-      position: relative;
-      z-index: 2;
-
       width: 100%;
-      max-width: 430px;
-      padding: 38px;
+      max-width: 420px;
+      padding: 36px;
 
-      border: 1px solid rgba(255,255,255,.11);
-      border-radius: 24px;
+      background: rgba(12,12,12,.9);
+      border: 1px solid #222;
+      border-radius: 22px;
 
-      background: rgba(10,10,10,.82);
-
-      box-shadow:
-        0 35px 100px rgba(0,0,0,.75),
-        inset 0 1px 0 rgba(255,255,255,.04);
-
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 13px;
-      margin-bottom: 35px;
+      box-shadow: 0 30px 80px rgba(0,0,0,.7);
     }
 
     .logo {
-      width: 44px;
-      height: 44px;
+      width: 45px;
+      height: 45px;
 
-      display: grid;
-      place-items: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
       border-radius: 13px;
-
       background: #fff;
       color: #000;
 
-      font-size: 18px;
+      font-size: 19px;
       font-weight: 900;
-    }
 
-    .brand-name {
-      font-size: 15px;
-      font-weight: 800;
-      letter-spacing: .13em;
-    }
-
-    .brand-sub {
-      margin-top: 3px;
-      color: #666;
-      font-size: 10px;
-      letter-spacing: .1em;
-      text-transform: uppercase;
+      margin-bottom: 25px;
     }
 
     .eyebrow {
-      margin: 0 0 9px;
-
       color: #777;
-
       font-size: 10px;
-      font-weight: 800;
-      letter-spacing: .17em;
+      font-weight: bold;
+      letter-spacing: .16em;
       text-transform: uppercase;
+      margin: 0 0 8px;
     }
 
     h1 {
       margin: 0;
-
-      font-size: 30px;
-      line-height: 1.15;
-      letter-spacing: -.04em;
+      font-size: 29px;
     }
 
     .description {
-      margin: 12px 0 28px;
-
       color: #777;
-      font-size: 14px;
+      font-size: 13px;
       line-height: 1.6;
-    }
-
-    .field {
-      margin-bottom: 15px;
+      margin: 12px 0 25px;
     }
 
     label {
       display: block;
-      margin-bottom: 8px;
-
       color: #aaa;
       font-size: 12px;
-      font-weight: 700;
+      font-weight: bold;
+      margin-bottom: 8px;
     }
 
     input {
@@ -175,116 +105,109 @@
 
       padding: 0 15px;
 
-      border: 1px solid #252525;
-      border-radius: 13px;
+      border: 1px solid #292929;
+      border-radius: 12px;
 
       outline: none;
 
       background: #080808;
-      color: #fff;
+      color: white;
 
       font-size: 14px;
-
-      transition: .2s ease;
-    }
-
-    input::placeholder {
-      color: #4d4d4d;
     }
 
     input:focus {
       border-color: #555;
-      background: #0c0c0c;
-      box-shadow:
-        0 0 0 3px rgba(255,255,255,.04);
+      box-shadow: 0 0 0 3px rgba(255,255,255,.04);
+    }
+
+    button {
+      width: 100%;
+      height: 52px;
+
+      margin-top: 15px;
+
+      border: 0;
+      border-radius: 12px;
+
+      background: #fff;
+      color: #000;
+
+      font-weight: 800;
+      cursor: pointer;
+
+      transition: .2s;
+    }
+
+    button:hover {
+      background: #e8e8e8;
+    }
+
+    button:disabled {
+      opacity: .55;
+      cursor: wait;
     }
 
     .error {
       display: none;
 
-      margin: 5px 0 14px;
-      padding: 12px 13px;
+      margin-top: 14px;
+      padding: 11px;
 
-      border: 1px solid rgba(255,70,70,.2);
-      border-radius: 11px;
+      border-radius: 10px;
 
-      background: rgba(255,50,50,.06);
+      background: rgba(255,60,60,.08);
+      border: 1px solid rgba(255,60,60,.2);
 
-      color: #ff8c8c;
-
+      color: #ff9292;
       font-size: 12px;
-      line-height: 1.5;
     }
 
-    .continue-btn {
-      width: 100%;
-      height: 52px;
+    /* Loading screen */
 
-      border: 0;
-      border-radius: 13px;
+    .loading {
+      display: none;
 
-      background: #fff;
-      color: #000;
+      position: fixed;
+      inset: 0;
 
-      cursor: pointer;
+      z-index: 100;
 
-      font-size: 13px;
-      font-weight: 800;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
 
-      transition: .2s ease;
+      background: #030303;
     }
 
-    .continue-btn:hover {
-      background: #e9e9e9;
-      transform: translateY(-1px);
-      box-shadow:
-        0 12px 30px rgba(255,255,255,.08);
-    }
+    .spinner {
+      width: 38px;
+      height: 38px;
 
-    .continue-btn:active {
-      transform: translateY(0);
-    }
-
-    .continue-btn:disabled {
-      opacity: .55;
-      cursor: not-allowed;
-      transform: none;
-    }
-
-    .security {
-      margin-top: 24px;
-      padding-top: 18px;
-
-      border-top: 1px solid #191919;
-
-      color: #555;
-
-      font-size: 11px;
-      line-height: 1.5;
-
-      text-align: center;
-    }
-
-    .dot {
-      display: inline-block;
-
-      width: 6px;
-      height: 6px;
-
-      margin-right: 5px;
+      border: 3px solid #222;
+      border-top-color: #fff;
 
       border-radius: 50%;
-      background: #777;
+
+      animation: spin .8s linear infinite;
+
+      margin-bottom: 20px;
     }
 
-    @media (max-width: 480px) {
-      .card {
-        padding: 27px 22px;
-        border-radius: 20px;
-      }
+    .loading-title {
+      font-size: 15px;
+      font-weight: 700;
+    }
 
-      h1 {
-        font-size: 27px;
+    .loading-text {
+      color: #666;
+      font-size: 12px;
+      margin-top: 7px;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
       }
     }
   </style>
@@ -294,65 +217,45 @@
 
   <main class="page">
 
-    <div class="grid"></div>
-    <div class="glow"></div>
-
     <section class="card">
 
-      <div class="brand">
-        <div class="logo">C</div>
-
-        <div>
-          <div class="brand-name">
-            COREX SCRIPT
-          </div>
-
-          <div class="brand-sub">
-            Staff Control Panel
-          </div>
-        </div>
-      </div>
+      <div class="logo">C</div>
 
       <p class="eyebrow">
-        Staff Access
+        COREX SCRIPT
       </p>
 
       <h1>
-        Welcome back.
+        Staff Access
       </h1>
 
       <p class="description">
-        Please enter the authorized staff email
-        to continue to the administration panel.
+        Enter the authorized staff email to
+        continue to the administration panel.
       </p>
 
       <form id="loginForm">
 
-        <div class="field">
-          <label for="email">
-            Staff Email
-          </label>
+        <label for="email">
+          Staff Email
+        </label>
 
-          <input
-            id="email"
-            name="email"
-            type="email"
-            autocomplete="email"
-            placeholder="Enter staff email"
-            required
-            autofocus
-          >
-        </div>
+        <input
+          id="email"
+          type="email"
+          autocomplete="email"
+          placeholder="Enter staff email"
+          required
+          autofocus
+        >
 
         <div
+          id="error"
           class="error"
-          id="loginError"
-          role="alert"
         ></div>
 
         <button
-          class="continue-btn"
-          id="loginBtn"
+          id="loginButton"
           type="submit"
         >
           Continue
@@ -360,41 +263,88 @@
 
       </form>
 
-      <div class="security">
-        <span class="dot"></span>
-        Authorized staff access only
-      </div>
-
     </section>
 
   </main>
 
+  <!-- Loading screen -->
+
+  <div
+    id="loading"
+    class="loading"
+  >
+
+    <div class="spinner"></div>
+
+    <div class="loading-title">
+      Checking staff access
+    </div>
+
+    <div class="loading-text">
+      Please wait...
+    </div>
+
+  </div>
+
   <script>
-    const form = document.getElementById('loginForm');
-    const email = document.getElementById('email');
-    const loginBtn = document.getElementById('loginBtn');
-    const loginError = document.getElementById('loginError');
+    const form =
+      document.getElementById('loginForm');
+
+    const email =
+      document.getElementById('email');
+
+    const button =
+      document.getElementById('loginButton');
+
+    const error =
+      document.getElementById('error');
+
+    const loading =
+      document.getElementById('loading');
+
 
     form.addEventListener('submit', async (event) => {
+
       event.preventDefault();
 
-      loginError.style.display = 'none';
-      loginError.textContent = '';
+      error.style.display = 'none';
+      error.textContent = '';
 
-      loginBtn.disabled = true;
-      loginBtn.textContent = 'Checking...';
+      const value =
+        email.value.trim().toLowerCase();
+
+      if (!value) {
+        error.textContent =
+          'Please enter the staff email.';
+
+        error.style.display = 'block';
+
+        return;
+      }
+
+      button.disabled = true;
+      button.textContent = 'Checking...';
+
+      loading.style.display = 'flex';
 
       try {
-        const response = await fetch('/api/admin/login', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          credentials: 'same-origin',
-          body: JSON.stringify({
-            email: email.value.trim()
-          })
-        });
+
+        const response = await fetch(
+          '/api/admin/login',
+          {
+            method: 'POST',
+
+            credentials: 'same-origin',
+
+            headers: {
+              'Content-Type': 'application/json'
+            },
+
+            body: JSON.stringify({
+              email: value
+            })
+          }
+        );
 
         let data = {};
 
@@ -405,35 +355,58 @@
         }
 
         if (!response.ok) {
-          loginError.textContent =
-            data.error || 'Access denied.';
-          loginError.style.display = 'block';
+
+          loading.style.display = 'none';
+
+          error.textContent =
+            data.error ||
+            'Access denied.';
+
+          error.style.display = 'block';
+
+          button.disabled = false;
+          button.textContent = 'Continue';
 
           return;
         }
 
-        loginBtn.textContent = 'Access granted ✓';
+        /*
+         * The server has successfully created
+         * the session cookie.
+         *
+         * Give the browser a tiny moment to
+         * commit the Set-Cookie header before
+         * navigating.
+         */
 
-        window.location.href = '/admin/index.html';
+        document.querySelector(
+          '.loading-text'
+        ).textContent =
+          'Access verified. Opening panel...';
 
-      } catch (error) {
-        console.error(error);
+        setTimeout(() => {
+          window.location.replace(
+            '/admin/index.html'
+          );
+        }, 250);
 
-        loginError.textContent =
-          'Unable to connect to the server. Please try again.';
+      } catch (err) {
 
-        loginError.style.display = 'block';
+        console.error(err);
 
-      } finally {
-        if (
-          loginBtn.textContent !== 'Access granted ✓'
-        ) {
-          loginBtn.disabled = false;
-          loginBtn.textContent = 'Continue';
-        }
+        loading.style.display = 'none';
+
+        error.textContent =
+          'Unable to connect to the server.';
+
+        error.style.display = 'block';
+
+        button.disabled = false;
+        button.textContent = 'Continue';
       }
+
     });
   </script>
 
 </body>
-  </html>
+          </html>
