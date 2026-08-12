@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Edit Script — COREX SCRIPT</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div id="navbar-mount"></div>
+
+  <div class="admin-layout">
+    <div id="admin-sidebar-mount"></div>
+    <div class="admin-main">
+      <h1 class="page-title" style="font-size:24px">Edit Script</h1>
+      <p class="page-sub">Changes go live immediately.</p>
+      <div style="max-width:640px;margin-top:24px" id="formMount"></div>
+    </div>
+  </div>
+
+  <div id="footer-mount"></div>
+
+  <script src="/js/common.js"></script>
+  <script src="/js/admin-common.js"></script>
+  <script src="/js/admin-form.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const admin = await initAdminShell('/admin/scripts.html');
+      if (!admin) return;
+
+      const params = new URLSearchParams(window.location.search);
+      const id = params.get('id');
+      if (!id) {
+        document.getElementById('formMount').innerHTML = '<p class="error-text">No script specified.</p>';
+        return;
+      }
+
+      try {
+        const res = await fetch(`/api/admin/scripts/${id}`);
+        if (!res.ok) {
+          document.getElementById('formMount').innerHTML = '<p class="error-text">Script not found.</p>';
+          return;
+        }
+        const data = await res.json();
+        renderScriptForm('formMount', { mode: 'edit', id, initial: data.script });
+      } catch {
+        document.getElementById('formMount').innerHTML = '<p class="error-text">Failed to load script.</p>';
+      }
+    });
+  </script>
+</body>
+</html>
