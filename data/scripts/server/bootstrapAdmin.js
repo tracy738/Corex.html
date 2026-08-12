@@ -2,33 +2,81 @@ const bcrypt = require('bcryptjs');
 const db = require('./db');
 
 /**
- * Runs once at server boot. If no admin account exists yet and
- * ADMIN_USERNAME/ADMIN_PASSWORD are set in the environment, creates the
- * account (storing only the bcrypt hash). Safe to leave the env vars set
- * across restarts — this only acts when there is no admin yet, so it
- * won't reset an existing account's password on redeploy.
+ * Runs once at server boot.
+ *
+ * Normal setup:
+ * - Creates the admin if no account exists.
+ *
+ * Password reset:
+ * - If ADMIN_RESET_PASSWORD is set, updates the existing admin's password.
+ * - This is intended to be used once, then the environment variable should
+ *   be removed from Render.
  */
 async function bootstrapAdmin() {
-  const existing = db.getAdminByUsername(process.env.ADMIN_USERNAME || '');
-  if (existing) return; // already set up
-
   const username = process.env.ADMIN_USERNAME;
   const password = process.env.ADMIN_PASSWORD;
+  const resetPassword = process.env.ADMIN_RESET_PASSWORD;
 
-  if (!username || !password) {
-    console.log('No admin account yet. Set ADMIN_USERNAME and ADMIN_PASSWORD env vars and redeploy, or run `npm run setup:admin` locally against this data directory.');
+  if (!username) {
+    console.log('No ADMIN_USERNAME configured.');
+    return;
+  }
+
+  const existing = db.getAdminByUsername(username);
+
+  // ---- ONE-TIME PASSWORD RESET ----
+  if (resetPassword) {
+    if (resetPassword.length < 10) {
+      console.warn(
+        'ADMIN_RESET_PASSWORD must be at least 10 characters. Password reset skipped.'
+      );
+      return;
+    }
+
+    const hash = await bcrypt.hash(resetPassword, 12);
+
+    if (existing) {
+      db.upsertAdmin(username, hash);
+      console.log(`Admin password for "${username}" has been reset.`);
+    } else {
+      db.upsertAdmin(username, hash);
+      console.log(`Admin account "${username}" created with reset password.`);
+    }
+
+    console.log(
+      'IMPORTANT: Remove ADMIN_RESET_PASSWORD from Render after this deployment.'
+    );
+
+    return;
+  }
+
+  // ---- NORMAL FIRST-TIME SETUP ----
+  if (existing) {
+    return;
+  }
+
+  if (!password) {
+    console.log(
+      'No admin account yet. Set ADMIN_USERNAME and ADMIN_PASSWORD in Render.'
+    );
     return;
   }
 
   if (password.length < 10) {
-    console.warn('ADMIN_PASSWORD is set but shorter than 10 characters — skipping admin creation.');
+    console.warn(
+      'ADMIN_PASSWORD is set but shorter than 10 characters — skipping admin creation.'
+    );
     return;
   }
 
   const hash = await bcrypt.hash(password, 12);
+
   db.upsertAdmin(username, hash);
+
   console.log(`Admin account "${username}" created from environment variables.`);
-  console.log('You can remove ADMIN_PASSWORD from your environment now — it is not read again once the account exists.');
+  console.log(
+    'The admin password is stored as a bcrypt hash and is not printed to logs.'
+  );
 }
 
 module.exports = { bootstrapAdmin };
