@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Search Scripts — COREX SCRIPT</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div id="navbar-mount"></div>
+
+  <main class="page">
+    <div class="wrap">
+      <h1 class="page-title">Search Scripts</h1>
+      <div style="max-width:560px;margin-top:24px">
+        <form class="search-form" id="searchForm">
+          <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M21 21l-4.3-4.3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          <input type="text" id="searchInput" class="search-input" placeholder="Search by script, game, or tag…" aria-label="Search scripts">
+        </form>
+      </div>
+
+      <div class="sort-row" id="sortRow">
+        <button class="sort-pill" data-sort="newest">Newest</button>
+        <button class="sort-pill" data-sort="popular">Most Viewed</button>
+        <button class="sort-pill" data-sort="featured">Featured</button>
+      </div>
+
+      <div id="results" style="margin-top:16px">
+        <p class="muted-note" id="resultsMsg">Type something to search.</p>
+        <div id="grid" class="script-grid"></div>
+      </div>
+    </div>
+  </main>
+
+  <div id="footer-mount"></div>
+
+  <script src="/js/common.js"></script>
+  <script src="/js/search.js"></script>
+</body>
+</html>
