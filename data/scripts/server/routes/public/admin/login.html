@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#050505">
-  <title>Admin Login — COREX SCRIPT</title>
+  <meta name="theme-color" content="#030303">
+  <title>Staff Access — COREX SCRIPT</title>
 
   <style>
     * {
@@ -22,147 +22,169 @@
 
     body {
       min-height: 100vh;
-      overflow-x: hidden;
+      overflow: hidden;
     }
 
-    .login-page {
+    .page {
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 24px;
+      padding: 20px;
       position: relative;
       background:
-        radial-gradient(circle at 50% 15%, rgba(255,255,255,.08), transparent 30%),
-        radial-gradient(circle at 15% 80%, rgba(255,255,255,.035), transparent 28%),
+        radial-gradient(
+          circle at 50% 20%,
+          rgba(255,255,255,.07),
+          transparent 32%
+        ),
         #030303;
     }
 
     .grid {
       position: absolute;
       inset: 0;
+      opacity: .12;
       pointer-events: none;
-      opacity: .18;
+
       background-image:
-        linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
-      background-size: 42px 42px;
-      mask-image: linear-gradient(to bottom, transparent, black 25%, black 75%, transparent);
+        linear-gradient(
+          rgba(255,255,255,.045) 1px,
+          transparent 1px
+        ),
+        linear-gradient(
+          90deg,
+          rgba(255,255,255,.045) 1px,
+          transparent 1px
+        );
+
+      background-size: 44px 44px;
     }
 
-    .login-glow {
+    .glow {
       position: absolute;
-      width: 420px;
-      height: 420px;
+      width: 400px;
+      height: 400px;
       border-radius: 50%;
-      background: rgba(255,255,255,.045);
-      filter: blur(90px);
+      background: rgba(255,255,255,.035);
+      filter: blur(100px);
       pointer-events: none;
     }
 
-    .login-card {
-      width: 100%;
-      max-width: 430px;
+    .card {
       position: relative;
       z-index: 2;
-      padding: 36px;
+
+      width: 100%;
+      max-width: 430px;
+      padding: 38px;
+
       border: 1px solid rgba(255,255,255,.11);
       border-radius: 24px;
-      background: rgba(10,10,10,.78);
+
+      background: rgba(10,10,10,.82);
+
       box-shadow:
-        0 30px 90px rgba(0,0,0,.7),
-        inset 0 1px 0 rgba(255,255,255,.045);
-      backdrop-filter: blur(22px);
-      -webkit-backdrop-filter: blur(22px);
+        0 35px 100px rgba(0,0,0,.75),
+        inset 0 1px 0 rgba(255,255,255,.04);
+
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
     }
 
     .brand {
       display: flex;
       align-items: center;
       gap: 13px;
-      margin-bottom: 34px;
+      margin-bottom: 35px;
     }
 
-    .brand-icon {
-      width: 43px;
-      height: 43px;
+    .logo {
+      width: 44px;
+      height: 44px;
+
       display: grid;
       place-items: center;
+
       border-radius: 13px;
+
       background: #fff;
       color: #000;
+
       font-size: 18px;
       font-weight: 900;
-      box-shadow: 0 8px 30px rgba(255,255,255,.08);
     }
 
     .brand-name {
       font-size: 15px;
       font-weight: 800;
-      letter-spacing: .12em;
+      letter-spacing: .13em;
     }
 
     .brand-sub {
       margin-top: 3px;
-      color: #777;
-      font-size: 11px;
-      letter-spacing: .08em;
+      color: #666;
+      font-size: 10px;
+      letter-spacing: .1em;
       text-transform: uppercase;
     }
 
     .eyebrow {
       margin: 0 0 9px;
-      color: #888;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: .16em;
+
+      color: #777;
+
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .17em;
       text-transform: uppercase;
     }
 
     h1 {
       margin: 0;
+
       font-size: 30px;
       line-height: 1.15;
       letter-spacing: -.04em;
     }
 
-    .subtitle {
-      margin: 11px 0 0;
+    .description {
+      margin: 12px 0 28px;
+
       color: #777;
       font-size: 14px;
       line-height: 1.6;
     }
 
-    form {
-      margin-top: 29px;
-    }
-
     .field {
-      margin-bottom: 18px;
+      margin-bottom: 15px;
     }
 
     label {
       display: block;
       margin-bottom: 8px;
-      color: #bdbdbd;
+
+      color: #aaa;
       font-size: 12px;
       font-weight: 700;
-    }
-
-    .input-wrap {
-      position: relative;
     }
 
     input {
       width: 100%;
       height: 52px;
+
       padding: 0 15px;
-      border: 1px solid #242424;
+
+      border: 1px solid #252525;
       border-radius: 13px;
+
       outline: none;
-      background: #090909;
+
+      background: #080808;
       color: #fff;
+
       font-size: 14px;
+
       transition: .2s ease;
     }
 
@@ -172,101 +194,91 @@
 
     input:focus {
       border-color: #555;
-      background: #0d0d0d;
-      box-shadow: 0 0 0 3px rgba(255,255,255,.045);
+      background: #0c0c0c;
+      box-shadow:
+        0 0 0 3px rgba(255,255,255,.04);
     }
 
-    #password {
-      padding-right: 70px;
-    }
-
-    .show-password {
-      position: absolute;
-      top: 50%;
-      right: 9px;
-      transform: translateY(-50%);
-      border: 0;
-      border-radius: 9px;
-      padding: 7px 9px;
-      background: transparent;
-      color: #777;
-      cursor: pointer;
-      font-size: 11px;
-      font-weight: 700;
-    }
-
-    .show-password:hover {
-      color: #fff;
-      background: #151515;
-    }
-
-    .error-box {
+    .error {
       display: none;
-      margin: 4px 0 14px;
+
+      margin: 5px 0 14px;
       padding: 12px 13px;
-      border: 1px solid rgba(255,80,80,.2);
+
+      border: 1px solid rgba(255,70,70,.2);
       border-radius: 11px;
-      background: rgba(255,60,60,.06);
-      color: #ff8b8b;
+
+      background: rgba(255,50,50,.06);
+
+      color: #ff8c8c;
+
       font-size: 12px;
       line-height: 1.5;
     }
 
-    .login-btn {
+    .continue-btn {
       width: 100%;
       height: 52px;
+
       border: 0;
       border-radius: 13px;
+
       background: #fff;
       color: #000;
+
       cursor: pointer;
+
       font-size: 13px;
       font-weight: 800;
+
       transition: .2s ease;
     }
 
-    .login-btn:hover {
-      transform: translateY(-1px);
+    .continue-btn:hover {
       background: #e9e9e9;
-      box-shadow: 0 12px 30px rgba(255,255,255,.08);
+      transform: translateY(-1px);
+      box-shadow:
+        0 12px 30px rgba(255,255,255,.08);
     }
 
-    .login-btn:active {
+    .continue-btn:active {
       transform: translateY(0);
     }
 
-    .login-btn:disabled {
+    .continue-btn:disabled {
       opacity: .55;
       cursor: not-allowed;
       transform: none;
-      box-shadow: none;
     }
 
-    .security-note {
-      margin: 23px 0 0;
+    .security {
+      margin-top: 24px;
       padding-top: 18px;
+
       border-top: 1px solid #191919;
+
       color: #555;
-      text-align: center;
+
       font-size: 11px;
       line-height: 1.5;
+
+      text-align: center;
     }
 
-    .security-dot {
+    .dot {
       display: inline-block;
+
       width: 6px;
       height: 6px;
+
       margin-right: 5px;
+
       border-radius: 50%;
       background: #777;
     }
 
     @media (max-width: 480px) {
-      .login-page {
-        padding: 16px;
-      }
-
-      .login-card {
+      .card {
         padding: 27px 22px;
         border-radius: 20px;
       }
@@ -280,153 +292,144 @@
 
 <body>
 
-  <main class="login-page">
-    <div class="grid"></div>
-    <div class="login-glow"></div>
+  <main class="page">
 
-    <section class="login-card">
+    <div class="grid"></div>
+    <div class="glow"></div>
+
+    <section class="card">
 
       <div class="brand">
-        <div class="brand-icon">C</div>
+        <div class="logo">C</div>
+
         <div>
-          <div class="brand-name">COREX SCRIPT</div>
-          <div class="brand-sub">Owner Control Panel</div>
+          <div class="brand-name">
+            COREX SCRIPT
+          </div>
+
+          <div class="brand-sub">
+            Staff Control Panel
+          </div>
         </div>
       </div>
 
-      <p class="eyebrow">Restricted Access</p>
+      <p class="eyebrow">
+        Staff Access
+      </p>
 
-      <h1>Welcome back.</h1>
+      <h1>
+        Welcome back.
+      </h1>
 
-      <p class="subtitle">
-        Sign in to manage your scripts, content, and administration settings.
+      <p class="description">
+        Please enter the authorized staff email
+        to continue to the administration panel.
       </p>
 
       <form id="loginForm">
 
         <div class="field">
-          <label for="username">Username</label>
+          <label for="email">
+            Staff Email
+          </label>
+
           <input
-            id="username"
-            name="username"
-            type="text"
-            autocomplete="username"
-            placeholder="Enter your username"
+            id="email"
+            name="email"
+            type="email"
+            autocomplete="email"
+            placeholder="Enter staff email"
             required
+            autofocus
           >
         </div>
 
-        <div class="field">
-          <label for="password">Password</label>
-
-          <div class="input-wrap">
-            <input
-              id="password"
-              name="password"
-              type="password"
-              autocomplete="current-password"
-              placeholder="Enter your password"
-              required
-            >
-
-            <button
-              type="button"
-              class="show-password"
-              id="showPassword"
-            >Show</button>
-          </div>
-        </div>
-
         <div
-          class="error-box"
+          class="error"
           id="loginError"
           role="alert"
         ></div>
 
         <button
-          type="submit"
-          class="login-btn"
+          class="continue-btn"
           id="loginBtn"
+          type="submit"
         >
-          Sign in
+          Continue
         </button>
 
       </form>
 
-      <div class="security-note">
-        <span class="security-dot"></span>
-        Secure owner authentication
+      <div class="security">
+        <span class="dot"></span>
+        Authorized staff access only
       </div>
 
     </section>
+
   </main>
 
   <script>
     const form = document.getElementById('loginForm');
-    const username = document.getElementById('username');
-    const password = document.getElementById('password');
+    const email = document.getElementById('email');
     const loginBtn = document.getElementById('loginBtn');
     const loginError = document.getElementById('loginError');
-    const showPassword = document.getElementById('showPassword');
 
-    showPassword.addEventListener('click', () => {
-      const visible = password.type === 'text';
-
-      password.type = visible ? 'password' : 'text';
-      showPassword.textContent = visible ? 'Show' : 'Hide';
-    });
-
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
 
       loginError.style.display = 'none';
       loginError.textContent = '';
 
       loginBtn.disabled = true;
-      loginBtn.textContent = 'Signing in...';
+      loginBtn.textContent = 'Checking...';
 
       try {
-        const res = await fetch('/api/admin/login', {
+        const response = await fetch('/api/admin/login', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
           credentials: 'same-origin',
           body: JSON.stringify({
-            username: username.value.trim(),
-            password: password.value
+            email: email.value.trim()
           })
         });
 
         let data = {};
 
         try {
-          data = await res.json();
+          data = await response.json();
         } catch {
           data = {};
         }
 
-        if (!res.ok) {
+        if (!response.ok) {
           loginError.textContent =
-            data.error || 'Invalid username or password.';
+            data.error || 'Access denied.';
           loginError.style.display = 'block';
+
           return;
         }
 
-        loginBtn.textContent = 'Success ✓';
+        loginBtn.textContent = 'Access granted ✓';
 
-        setTimeout(() => {
-          window.location.href = '/admin/index.html';
-        }, 300);
+        window.location.href = '/admin/index.html';
 
       } catch (error) {
+        console.error(error);
+
         loginError.textContent =
           'Unable to connect to the server. Please try again.';
+
         loginError.style.display = 'block';
+
       } finally {
-        if (!loginBtn.textContent.includes('Success')) {
+        if (
+          loginBtn.textContent !== 'Access granted ✓'
+        ) {
           loginBtn.disabled = false;
-          loginBtn.textContent = 'Sign in';
+          loginBtn.textContent = 'Continue';
         }
       }
     });
