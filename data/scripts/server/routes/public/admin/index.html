@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin Dashboard — COREX SCRIPT</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div id="navbar-mount"></div>
+
+  <div class="admin-layout">
+    <div id="admin-sidebar-mount"></div>
+    <div class="admin-main">
+      <h1 class="page-title" style="font-size:24px">Dashboard</h1>
+      <p class="page-sub">Overview of your COREX SCRIPT library.</p>
+
+      <div class="stat-grid" id="statGrid">
+        <div class="stat-card"><p class="stat-label">Total Scripts</p><p class="stat-value">—</p></div>
+        <div class="stat-card"><p class="stat-label">Total Views</p><p class="stat-value">—</p></div>
+        <div class="stat-card"><p class="stat-label">Featured</p><p class="stat-value">—</p></div>
+        <div class="stat-card"><p class="stat-label">Reports</p><p class="stat-value">—</p></div>
+      </div>
+
+      <div class="panel-grid">
+        <div class="panel">
+          <h2>Most Viewed</h2>
+          <ul id="topScriptsList"><li class="muted">Loading…</li></ul>
+        </div>
+        <div class="panel">
+          <h2>Recent Reports</h2>
+          <ul id="reportsList"><li class="muted">Loading…</li></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="footer-mount"></div>
+
+  <script src="/js/common.js"></script>
+  <script src="/js/admin-common.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const admin = await initAdminShell('/admin/index.html');
+      if (!admin) return;
+
+      try {
+        const res = await fetch('/api/admin/stats');
+        const data = await res.json();
+
+        const cards = document.querySelectorAll('#statGrid .stat-value');
+        cards[0].textContent = data.totals.total_scripts;
+        cards[1].textContent = data.totals.total_views.toLocaleString();
+        cards[2].textContent = data.totals.total_featured;
+        cards[3].textContent = data.totals.total_reports;
+
+        const topList = document.getElementById('topScriptsList');
+        topList.innerHTML = data.topScripts.length
+          ? data.topScripts.map((s) => `<li><span>${escapeHTML(s.title)}</span><span class="muted">${s.views.toLocaleString()} views</span></li>`).join('')
+          : '<li class="muted">No scripts yet.</li>';
+
+        const reportsList = document.getElementById('reportsList');
+        reportsList.innerHTML = data.recentReports.length
+          ? data.recentReports.map((r) => `<li style="flex-direction:column;align-items:flex-start"><span>${escapeHTML(r.title)}</span><span class="muted">${escapeHTML(r.reason)}</span></li>`).join('')
+          : '<li class="muted">No reports.</li>';
+      } catch {
+        /* dashboard is non-critical; leave placeholders on failure */
+      }
+    });
+  </script>
+</body>
+</html>
